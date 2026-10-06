@@ -1,34 +1,49 @@
-# Linear Regression Project
+# Body Measurement Height Prediction
 
-A machine learning project that predicts body measurements using Linear Regression.
+An educational regression project that predicts total height from body measurements with scikit-learn's Linear Regression.
 
-## Workflow
+## Dataset
 
-- Data loading
-- Missing value handling
-- Outlier removal using IQR
-- Feature preprocessing
-- Categorical encoding
-- Feature scaling
-- Linear Regression training
-- Model evaluation
+The CSV is based on [Body Measurements Datasets](https://data.mendeley.com/datasets/bjv6c9pmp4/1) by Muhammad Kiru (DOI: [10.17632/bjv6c9pmp4.1](https://doi.org/10.17632/bjv6c9pmp4.1)). The measurements are in inches. The source dataset is licensed under CC BY 4.0; its license and attribution are separate from this repository's MIT license.
 
-## Technologies
+## Method
 
-- Python
-- Pandas
-- Scikit-learn
-- Matplotlib
+- Predict `TotalHeight` from age, body measurements, and gender.
+- Split the original rows into an 80% training set and a 20% test set using random seed 42.
+- Calculate IQR bounds from the training set only and filter only training rows. The test rows remain untouched.
+- Fit missing-value imputation, feature scaling, and gender encoding within the training pipeline.
+- Evaluate once on the held-out test set using MAE, MSE, and R-squared.
 
-## Run
+The current reference run reports MAE 5.475 inches, MSE 57.004 inches squared, and R-squared 0.637. These values describe this one fixed split and are not a guarantee of generalization.
+
+## Requirements and run
+
+Python 3.9 or newer:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 python src/main.py
 ```
-## Results
 
-Linear Regression performance:
+The script prints the training and test sample counts and evaluation metrics, then displays an actual-versus-predicted plot.
 
-- Mean Squared Error (MSE): 54.52
-- R² Score: 0.486
+## Tests
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Project structure
+
+```text
+linear-regression-project/
+├── data/
+│   └── Body Measurements _ original_CSV.csv
+├── src/
+│   └── main.py
+├── tests/
+│   └── test_pipeline.py
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
